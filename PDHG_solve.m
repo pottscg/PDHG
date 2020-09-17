@@ -20,7 +20,7 @@ for k = 1:steps
     
     xn = xn - r1*r2*gradient;
     
-    %projection todo
+    xn = ProjectOntoSimplex(xn);
     
     xbarn = 2*xn - xn_last;
     

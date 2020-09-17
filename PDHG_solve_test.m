@@ -26,6 +26,10 @@ toc
 
 norm(x_solution - x_pdhg) / norm(x_solution)
 
+sum(x_pdhg)
+
+sum(x_pdhg < 0)
+
 %% conjugate gradients
 
 tic
