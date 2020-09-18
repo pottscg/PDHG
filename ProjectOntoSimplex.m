@@ -1,20 +1,16 @@
 function w = ProjectOntoSimplex(v)
-% PROJECTONTOSIMPLEX Projets point onto simplex of specifieid radius. 
-%
-% w = ProjectOntoSimplex(v, b) returns the vector w which is the solution
-%   to the following constrained minimization problem:
-%   
-%   min  ||w-v||_2
-%   s.t. sum(w) <=b, w >=0
-%
-%  That is, performs Euclidean projection of v to the positive simplex of
-%   radius b. 
-%
-% Auher: John Duchi (jduchi@cs.berkley.edu)
+% PROJECTONTOSIMPLEX Projects point v onto the probability simplex.
 
-v = (v>0).*v;
-u = sort(v,'descend');
-sv = cumsum(u);
-rho = find(u > (sv-1) ./ (1:length(u))',1,'last');
-theta = max(0, (sv(rho)-1)/rho);
-w = max(v-theta,0);
+v = v - min(v(:));   % make sure we are in the positive orthant
+
+sum_v = sum(v(:));  % compute the current l1-norm
+
+if sum_v < 1  
+  w = v + (1-sum_v)/numel(v);   % if deficient, just uniformly add
+else  
+  u = sort(v,'descend');      % if excessive, "just shrink"
+  sv = cumsum(u);
+  rho = find(u > (sv-1) ./ (1:numel(u))',1,'last');
+  theta = max(0, (sv(rho)-1)/rho);
+  w = max(v-theta,0);
+end
