@@ -12,5 +12,5 @@ else
   sv = cumsum(u);
   rho = find(u > (sv-1) ./ (1:numel(u))',1,'last');
   theta = max(0, (sv(rho)-1)/rho);
-  w = max(v-theta,0,"all");
+  w = max(v-theta,zeros(size(v)));
 end
