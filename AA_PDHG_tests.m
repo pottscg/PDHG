@@ -22,5 +22,25 @@ XSt = X*S';
 SSE=SST-2*sum(sum(XC.*XSt))+sum(sum(CtXtXC.*SSt));
 muS = 1;
 %update
-[S,SSE,muS,SSt]=Supdate(S,XCtX,CtXtXC,muS,SST,SSE,10);
+[Supdate,SSEupdate,muSupdate,SStupdate]=Supdate(S,XCtX,CtXtXC,muS,SST,SSE,10);
 toc;
+
+%% Test A update using Matlab's lsqlin
+
+tic;
+A = S;
+XB = XC;
+[m,n] = size(X);
+    A_new = zeros(size(A));
+    tic;
+    rho2 = normest( XB'*XB ); 
+    toc;
+    r1 = 0.5;
+    r2 = 1/rho2/r1;
+    steps = 10;
+
+    for i = 1:n
+        A_new(:,i) = lsqlin(-XB,-X(:,i)',ones(1,size(A,1)), 1, [], [], zeros(size(A,1),1), []);
+    end
+ 
+  toc;
