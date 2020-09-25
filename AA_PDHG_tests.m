@@ -65,4 +65,6 @@ X_lsqlin_recon = XC*A_new;
 Lsqlin_err = norm(X-X_lsqlin_recon)/norm(X)
 
 profile off
-profile viewer
+% profile viewer % shows the html profile
+% or
+% profsave % saves an html in current working directory
