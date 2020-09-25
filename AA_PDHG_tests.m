@@ -1,3 +1,5 @@
+profile on
+
 addpath '/home/potts/Archetypal_Analysis/PDHG'
 
 load('/home/potts/Archetypal_Analysis/RESULTS/MORUP/mnist_20MorupAA.mat');
@@ -61,3 +63,6 @@ XB = XC;
  
 X_lsqlin_recon = XC*A_new;
 Lsqlin_err = norm(X-X_lsqlin_recon)/norm(X)
+
+profile off
+profile viewer
