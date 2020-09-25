@@ -5,7 +5,7 @@ function xn = PDHG_solve(A,b,r1,r2,steps)
 % Ouput: n vector x
 
 
-xn = zeros(size(A,2),1);
+xn = sparse(size(A,2),1);
 
 xbarn = xn;
 Atb = A'*b;
@@ -18,9 +18,9 @@ for k = 1:steps
 
     gradient = (gradient + AtA*xbarn - Atb)/(1+r1);
     
-    xn = xn - r1*r2*gradient;
+    xstar = xn - r1*r2*gradient;
     
-    xn = ProjectOntoSimplex(xn);
+    xn = sparse(ProjectOntoSimplex(xstar));
     
     xbarn = 2*xn - xn_last;
     
