@@ -11,9 +11,7 @@ function A_new = update_Agpu(A,X,XB)
 
     [~,n] = size(X);
     A_new = zeros(size(A));
-    tic;
     rho2 = normest( XB'*XB ); 
-    toc;
     r1 = 0.5;
     r2 = 1/rho2/r1;
     steps = 10;
