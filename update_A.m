@@ -11,13 +11,13 @@ function A_new = update_A(A,X,XB)
 
     [~,n] = size(X);
     A_new = zeros(size(A));
-    rho2 = normest( XB'*XB ); 
+    XBtXB = XB'*XB;
+    rho2 = normest( XBtXB ); 
     r1 = 0.5;
     r2 = 1/rho2/r1;
     steps = 10;
-
     for i = 1:n
-        A_new(:,i) = PDHG_solve(-XB,-X(:,i),r1,r2,steps);
+        A_new(:,i) = PDHG_solve(-XB,XBtXB,-X(:,i),r1,r2,steps);
     end
 
 end

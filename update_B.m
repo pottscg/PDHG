@@ -11,7 +11,7 @@ function B_new = update_B(B,A,X)
     r1 = 0.5;
     r2 = 1/rho2/r1;
     steps = 10;
-    
+    XtX = X'*X;
     vk = zeros(n,1);
     alpha_k_sums = sum(A,2);
     for k = 1:p
@@ -23,7 +23,7 @@ function B_new = update_B(B,A,X)
            A_hat(k,:) = [];
            vk = (X - X*B_hat*A_hat);
            vk = (1/alpha_k_sums(k))*sum(vk,2);
-           B_new(:,k) = PDHG_solve(-X,-vk,r1,r2,steps);
+           B_new(:,k) = PDHG_solve(-X,XtX,-vk,r1,r2,steps);
         end
     end
 end
