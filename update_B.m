@@ -13,17 +13,17 @@ function B_new = update_B(B,A,X)
     steps = 10;
     XtX = X'*X;
     vk = zeros(n,1);
-    alpha_k_sums = sum(A,2);
+    alpha_k_sqsums = sum(A.*A,2);
     for k = 1:p
-        if alpha_k_sums(k) > eps
+        if alpha_k_sqsums(k) > eps
             % update b_k via algorithm, otherwise no update
            B_hat = B_new;
            B_hat(:,k) = [];
            A_hat = A;
            A_hat(k,:) = [];
-           vk = (X - X*B_hat*A_hat);
-           vk = (1/alpha_k_sums(k))*sum(vk,2);
-           B_new(:,k) = PDHG_solve(-X,XtX,-vk,r1,r2,steps);
+           vk = (X - X*B_hat*A_hat)*A(k,:)';
+           vk = (1/alpha_k_sqsums(k))*sum(vk,2);
+           B_new(:,k) = PDHG_solve(X,XtX,vk,r1,r2,steps);
         end
     end
 end
