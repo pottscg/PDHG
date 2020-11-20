@@ -17,9 +17,18 @@ Original_err = norm(X-X_recon)/norm(X)
 
 %% Test update of B given A fixed
 
+XtX = X'*X;
+[m,n] = size(X);
+if m >= n
+    rho2 = normest( XtX ); 
+else
+    rho2 = normest( X*X' );
+end
+r1 = 0.5;
+r2 = 1/rho2/r1;
+steps = 10;
 tic;
-
-B_PDHGupdate = update_B(C,S,X);
+B_PDHGupdate = update_B(C,S,X,XtX,r1,r2,steps);
 
 toc;
 

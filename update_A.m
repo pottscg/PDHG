@@ -7,7 +7,7 @@
 %         XB - archetypes for a fixed B
 % Outputs: A_new - updated reconstruction weights for fixed B
 
-function A_new = update_A(A,X,XB)
+function [A_new,SSE] = update_A(A,X,XB,SST)
 
     [~,n] = size(X);
     A_new = zeros(size(A));
@@ -19,7 +19,7 @@ function A_new = update_A(A,X,XB)
     for i = 1:n
         A_new(:,i) = PDHG_solve(-XB,XBtXB,-X(:,i),r1,r2,steps);
     end
-
+    SSE=SST-2*sum(sum((XB'*X).*A_new))+sum(sum(XBtXB.*(A_new*A_new'))); 
 end
 
 
