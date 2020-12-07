@@ -1,11 +1,12 @@
-function xn = PDHG_solve(A, AtA, b,r1,r2,steps)
+function xn = PDHG_solve(A, AtA, b, start, r1,r2,steps)
 % Solves the min |Ax-b| problem using
 % the primal dual hybrid gradient algorithm
 % Input: m by n matrix A, m vector b
 % Ouput: n vector x
 
 
-xn = sparse(size(A,2),1);
+% xn = sparse(size(A,2),1);
+xn = start;
 
 xbarn = xn;
 Atb = A'*b;

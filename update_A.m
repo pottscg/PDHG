@@ -17,7 +17,7 @@ function [A_new,SSE] = update_A(A,X,XB,SST)
     r2 = 1/rho2/r1;
     steps = 10;
     for i = 1:n
-        A_new(:,i) = PDHG_solve(-XB,XBtXB,-X(:,i),r1,r2,steps);
+        A_new(:,i) = PDHG_solve(-XB,XBtXB,-X(:,i),A(:,i),r1,r2,steps);
     end
     SSE=SST-2*sum(sum((XB'*X).*A_new))+sum(sum(XBtXB.*(A_new*A_new'))); 
 end

@@ -23,7 +23,7 @@ function B_new = update_B(B,A,X,XtX,r1,r2,steps)
            A_hat(k,:) = [];
            vk = (X - X*B_hat*A_hat)*A(k,:)';
            vk = (1/alpha_k_sqsums(k))*sum(vk,2);
-           B_new(:,k) = PDHG_solve(X,XtX,vk,r1,r2,steps);
+           B_new(:,k) = PDHG_solve(X,XtX,vk,B(:,k),r1,r2,steps);
         end
     end
 end
