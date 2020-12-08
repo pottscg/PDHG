@@ -89,6 +89,15 @@ else
     [A,SSE] = update_A(A,X(:,U),XB,SST);
 end
 
+% looking at initial archetypes and weights
+figure; 
+hold on;
+scatter(X(1,:),X(2,:),2,'filled'); 
+xlim([0 3]); ylim([0 3]);
+scatter(XB(1,:),XB(2,:),25,[0.85, 0.325, 0.098],'filled');
+hold off;
+
+
 % Set PCHA parameters
 iter=0;
 dSSE=inf;
