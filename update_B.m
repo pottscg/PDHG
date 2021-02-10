@@ -1,4 +1,4 @@
-function B_new = update_B(B,A,X,XtX,r1,r2,steps)
+function B_new = update_B(B,A,X,XtX,r1,r2,steps, noc)
 
     [n,p] = size(B);
     B_new = B;
@@ -25,5 +25,9 @@ function B_new = update_B(B,A,X,XtX,r1,r2,steps)
            vk = (1/alpha_k_sqsums(k))*sum(vk,2);
            B_new(:,k) = PDHG_solve(X,XtX,vk,B(:,k),r1,r2,steps);
         end
+%         B_new(B_new<0)=0;
+%         nB=sum(B_new,1)+eps;            
+%         B_new=B_new*sparse(1:noc,1:noc,1./nB);
     end
+
 end

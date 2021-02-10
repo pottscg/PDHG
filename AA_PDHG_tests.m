@@ -1,4 +1,6 @@
-profile on
+clear all; 
+
+% profile on
 
 addpath '/home/potts/Archetypal_Analysis/PDHG'
 
@@ -64,7 +66,9 @@ XB = XC;
 X_lsqlin_recon = XC*A_new;
 Lsqlin_err = norm(X-X_lsqlin_recon)/norm(X)
 
-profile off
+% profile off
 % profile viewer % shows the html profile
-% or
-% profsave % saves an html in current working directory
+%or
+% profsave(profile('info'),'update_Agpu_test_profileresults')% saves an html in current working directory
+
+%% Wiggle Morup's result for B to test a B update
