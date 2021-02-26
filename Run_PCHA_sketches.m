@@ -1,8 +1,8 @@
 addpath('PCHA/');
 
-filename = '256d_900pts_3vecorthogcube_10MorupAA_Gaussian';
+filename = 'cbcl_FJLT_10MorupAA_unnormalizedGaussian';
 
-load('DATASETS/256d_900pts_3vecorthogcube.mat');
+load('DATASETS/cbcl_FJLT.mat');
 % load(strcat('RESULTS/MORUP/',filename,'.mat'));
 [m,n] = size(X);
 noc=10; % Number of archetypes
@@ -15,17 +15,17 @@ I = 1:n;
 
 [XC,S,C,SSE,varexpl]=PCHA(X,noc,I,U,delta,opts);
 
-L2_Model_err = zeros(75,100);
-L2_MORUPRECON_ERR = zeros(75,100);
-L2_ORIGINAL_ERR = zeros(75,100);
-L2_MORUPC_ERR = zeros(75,100);
-L2_MORUPS_ERR = zeros(75,100);
-L2_MORUPXC_ERR = zeros(75,100);
+L2_Model_err = zeros(85,20);
+L2_MORUPRECON_ERR = zeros(85,20);
+L2_ORIGINAL_ERR = zeros(85,20);
+L2_MORUPC_ERR = zeros(85,20);
+L2_MORUPS_ERR = zeros(85,20);
+L2_MORUPXC_ERR = zeros(85,20);
 Recon_Morup = X*C*S;
 
-for seed = 1:100
+for seed = 1:20
     rng(seed);
-    for k = 1:75
+    for k = 1:85
         d = 3*k;
         % d = 25; % Number of dimensions to project onto
 
@@ -93,5 +93,5 @@ for seed = 1:100
         L2_Model_err(k,seed) = norm(X - Recon_sketches, 'fro')^2;
     end
 end
-save(strcat('RESULTS/SKETCH_TYPES',filename,'.mat'),'L2_MORUPRECON_ERR','L2_ORIGINAL_ERR',...
+save(strcat('RESULTS/SKETCH_TYPES/',filename,'.mat'),'X','L2_MORUPRECON_ERR','L2_ORIGINAL_ERR',...
         'L2_MORUPC_ERR', 'L2_MORUPS_ERR','L2_MORUPXC_ERR', 'L2_Model_err', 'Recon_Morup');

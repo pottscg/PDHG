@@ -10,18 +10,18 @@ function PSI = Sketch_Projection(m,d,type)
     
     if(strcmp(type,'Gaussian'))
         %create d x m projection matrix 
-        PSI = reshape(rand(d*m,1),[d,m]);
+        PSI = reshape(randn(d*m,1),[d,m]);
 
-        %normalize over rows
-        for j = 1:d
-            PSI(j,:) = PSI(j,:)./sum(PSI(j,:));
-        end
+%         %normalize over rows
+%         for j = 1:d
+%             PSI(j,:) = PSI(j,:)./sum(PSI(j,:));
+%         end
     else if(strcmp(type, 'Ternary'))
             %create d x m projection matrix 
             seed = reshape(rand(d*m,1),[d,m]);
             PSI = zeros(size(seed));
-            PSI(seed<=0.25) = -1;
-            PSI(seed>=0.75) = 1;
+            PSI(seed<=(1/6)) = -1;
+            PSI(seed>=(5/6)) = 1;
             
         else if(strcmp(type,'FJLT'))
                 %sparsity coeff
